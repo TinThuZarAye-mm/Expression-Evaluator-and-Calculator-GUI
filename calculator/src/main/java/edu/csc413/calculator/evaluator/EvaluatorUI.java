@@ -1,5 +1,7 @@
 package edu.csc413.calculator.evaluator;
 
+import edu.csc413.calculator.exceptions.InvalidTokenException;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -71,7 +73,53 @@ public class EvaluatorUI extends JFrame implements ActionListener {
      *                    button is pressed.
      */
     public void actionPerformed(ActionEvent actionEventObject) {
-
-
+        String buttonPressed = actionEventObject.getActionCommand();
+        String oldText = this.expressionTextField.getText();
+        if("1".equals(buttonPressed)){
+            this.expressionTextField.setText(oldText + "1");
+        } else if("2".equals(buttonPressed)){
+            this.expressionTextField.setText(oldText + "2");
+        }else if("3".equals(buttonPressed)){
+            this.expressionTextField.setText(oldText + "3");
+        }else if("4".equals(buttonPressed)){
+            this.expressionTextField.setText(oldText + "4");
+        }else if("5".equals(buttonPressed)){
+            this.expressionTextField.setText(oldText + "5");
+        }else if("6".equals(buttonPressed)){
+            this.expressionTextField.setText(oldText + "6");
+        }else if("7".equals(buttonPressed)){
+            this.expressionTextField.setText(oldText + "7");
+        }else if("8".equals(buttonPressed)){
+            this.expressionTextField.setText(oldText + "8");
+        }else if("9".equals(buttonPressed)){
+            this.expressionTextField.setText(oldText + "9");
+        }else if("0".equals(buttonPressed)){
+            this.expressionTextField.setText(oldText + "0");
+        } else if("+".equals(buttonPressed)){
+            this.expressionTextField.setText(oldText + "+");
+        }else if("- ".equals(buttonPressed)){
+            this.expressionTextField.setText(oldText + "- ");
+        }else if("*".equals(buttonPressed)){
+            this.expressionTextField.setText(oldText + "*");
+        }else if("/".equals(buttonPressed)){
+            this.expressionTextField.setText(oldText + "/");
+        }else if("^".equals(buttonPressed)){
+            this.expressionTextField.setText(oldText + "^");
+        }else if("(".equals(buttonPressed)){
+            this. expressionTextField.setText(oldText + "(");
+        }else if(")".equals(buttonPressed)) {
+            this.expressionTextField.setText(oldText + ")");
+        }else if("=".equals(buttonPressed)){
+            Evaluator result = new Evaluator();
+            try {
+                this.expressionTextField.setText(Integer.toString(result.evaluateExpression(oldText)));
+            } catch (InvalidTokenException e) {
+                e.printStackTrace();
+            }
+        }else if("CE".equals(buttonPressed)){
+                this.expressionTextField.setText(oldText.substring(0,oldText.length()-1));
+        }else {
+            this.expressionTextField.setText(" ");
+        }
     }
 }

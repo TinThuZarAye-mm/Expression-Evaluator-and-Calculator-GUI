@@ -1,6 +1,10 @@
 package edu.csc413.calculator.operators;
 
+
 import edu.csc413.calculator.evaluator.Operand;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public abstract class Operator {
     // The Operator class should contain an instance of a HashMap
@@ -14,10 +18,25 @@ public abstract class Operator {
     // operators.put( "+", new AdditionOperator() );
     // operators.put( "-", new SubtractionOperator() );
 
+    private static Map<String , Operator> operators;
+    static {
+
+        operators = new HashMap<>();
+        operators.put("(", new LeftParenthesisOperator());
+        operators.put(")", new RightParenthesisOperator());
+        operators.put("+" , new AddOperator());
+        operators.put("-" , new SubtractOperator());
+        operators.put("*" , new MultiplyOperator());
+        operators.put("/" , new DivideOperator());
+        operators.put("^" , new PowerOperator());
+
+    }
+
     /**
      * retrieve the priority of an Operator
      * @return priority of an Operator as an int
      */
+
     public abstract int priority();
 
     /**
@@ -28,6 +47,7 @@ public abstract class Operator {
      */
     public abstract Operand execute(Operand operandOne, Operand operandTwo);
 
+
     /**
      * determines if a given token is a valid operator.
      * please do your best to avoid static checks
@@ -35,7 +55,11 @@ public abstract class Operator {
      * Think about what happens if we add more operators.
      */
     public static Operator getOperator(String token) {
+        if(check(token)){
+            return Operator.operators.get(token);
+        }
         return null;
+       // return operators.get(token);
     }
 
     /**
@@ -47,6 +71,13 @@ public abstract class Operator {
      * @return reference to a Operator instance.
      */
     public static boolean check(String token) {
+        if(operators.containsKey(token)){
+            return true;
+        }
         return false;
+
+       // return operators.containsKey(token);
     }
 }
+
+
